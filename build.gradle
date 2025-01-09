@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.4.1'
+    id 'org.springframework.boot' version '3.1.0'
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -18,10 +18,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-mustache'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // 데이터 베이스를 보다 편리하게 다룰 수 있도록 해주는 도구
+    implementation 'org.springframework.boot:spring-boot-starter-mustache' // 화면을 만들기 위한 view templates
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'com.h2database:h2' // 자료를 저장하기 위한 데이터베이스
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
