@@ -41,3 +41,21 @@
   * Q. DB에 자바 명령을 내릴 수 있는 방법은? `JPA(Java Persistence API)`를 이용하여 자바 언어로 DB에 명령을 내리는 도구이다.
   * 엔티티(Entity) : 테이블을 만든다.
   * 리파지토리(Repository) : 엔티티가 DB 속 테이블에 저장 및 관리될 수 있게 하는 인터페이스이다.
+
+#### 3.3.3 Repository 로 엔티티를 DB에 저장하기 (119p)
+* `CrudRepository<T, ID>` : JPA에서 제공하는 인터페이스로 이것을 상속해 엔티티를 관리(생성, 조회, 수정, 삭제)할 수 있다. 
+  * `<T>` : 관리 대상 엔티티의 클래스 타입으로 관리 대상 클래스명을 작성하면 된다. 
+  * `<ID>` : 관리 대상 엔티티의 대푯값이다. 관리 대상 클래스의 `id`의 타입을 작성하면 된다.
+
+* 객체 주입하기 : SpringBoot 에서는 `클래스명Impl()`와 같은 구현체(객체)를 만들지 않아도 알아서 객체를 만들 수 있다. `@Autowired` 어노테이션을 사용하면 SpringBoot 가 미리 생성한 객체를 가져와 연결해준다.
+  * 이것을 의존성 주입(DI, Dependency Injection) 이라고 한다.
+
+* 데이터 저장 확인하기 (추후에는 PostMan을 이용하여 서버의 값이 갔는지 보는 것이 더 좋다.)
+  * `DTO`가 엔티티로 잘 변환되는지 `Article` 에 `toString()` 메서드를 이용하여 `ArticleController`에서 `System.out.println()`을 이용하여 로그를 찍어본다.
+  * `article` 내용이 DB에 잘 저장되는지 `articleRepository`의 `saved`를 이용하여 `toString()` 메서드를 호출하고 `System.out.println()`을 이용하여 로그를 찍어본다.
+  ```
+    // 서버창에서 로그 확인
+    1. ArticleForm{title='입력한내용', content='입력한내용'} : 폼 데이터를 받는 객체인 DTO에 값이 저장되었음을 확인할 수 있다. DTO의 클래스 타입은 ArticleForm 이다.
+    2. Article{id=null, title='입력한내용', content='입력한내용'} : DTO가 엔티티로 변환되어 id=null(ArticleForm 에는 id 필드가 정의되어 있지 않음. 그래서 값이 null), title과 content에 입력한 값이 저장됐다. 엔티티의 클래스 타입은 Article이다. 
+    3. Article{id=1, title='입력한내용', content='입력한내용'} : 마지막으로 repository가 엔티티를 DB에 저장해 saved라는 엔티티 변수에 반환한다. saved 변수에 저장된 결과는 title과 content는 똑같고, id는 자동으로 설정되었다. saved 변수는 엔티티 타입이고, 엔티티의 클래스 타입은 Article 이다.
+  ```
