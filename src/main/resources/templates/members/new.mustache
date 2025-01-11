@@ -1,0 +1,16 @@
+{{>layouts/header}}
+
+    <form class="container" action="/join" method="post"> <!-- 입력 폼 작성, 부트스트랩 CSS 코드 적용 -->
+        <div class="mb-3">
+            <label class="form-label">이메일</label>
+            <input type="email" class="form-control" name="email"> <!-- DTO의 title 필드와 연결하기 위해 name 을 넣고 필드 이름 설정 -->
+        </div>
+        <div class="mb-3">
+            <label class="form-label">비밀번호</label>
+            <input type="password" class="form-control" name="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="/members">Back</a>
+    </form>
+
+{{>layouts/footer}}

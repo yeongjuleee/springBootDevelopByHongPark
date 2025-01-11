@@ -30,7 +30,7 @@ public class ArticleController {
         System.out.println(article.toString()); // DTO가 엔티티로 잘 변환되는지 로그 찍어보기 
         // 2. repository로 엔티티를 DB에 저장
         Article saved = articleRepository.save(article); // article 엔티티를 저장해 saved 객체에 반환
-        System.out.println(saved.toString()); // article이 DE에 잘 저장되었는지 로그 찍어보기
+        System.out.println(saved.toString()); // article이 DB에 잘 저장되었는지 로그 찍어보기
         
         return "";
     }
