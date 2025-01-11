@@ -32,3 +32,16 @@
 * 부트스트랩 홈페이지 : [부트스트랩사이트](https://getbootstrap.com)
 * 서버를 재시작하지 않고 도구 바의 망치 아이콘을 클릭(`Ctrl` + `F9` 버튼) 이용시 프로젝트를 빌드해 수정된 HTML 코드를 좀 더 빠르게 반영할 수 있다.
   * 현재 UI에서는 Build > Build Project를 클릭하면 빌드할 수 있다. 빌드하는 순간 오른쪽 면 도구 창 모음에 망치 아이콘이 생긴다.
+
+#### 2.4.2 /bye 페이지에 헤더-푸터 레이아웃 적용하기(85p)
+*  템플릿화 한다 : 코드를 하나의 틀로 만들어 변수화 하는 것 
+* `{{>header}}`, `{{>footer}}` : 헤더 영역과 푸터 영역을 변수화해 사용하는 것. 이것을 올바르게 작동하도록 하기 위해서는 헤더와 푸터 영역을 각각 발췌해 템플릿 파일로 만들면 된다. 
+*  템플릿화 했다면 이것을 이용하기 위해 변수명을 입력하는데, 파일 경로를 입력해줘야 한다. `{{>파일명}}` (예시: layouts 폴더 안에 `header.mustache`라면, `{{>layouts/header}}` 라고 입력)
+---
+#### SpringBoot 가 `mustache` 템플릿 엔진 경로 찾도록 하기
+* SpringBoot에서 Mustache 템플릿 엔진을 자동으로 경로 인식하도록 하기 위한 의존성
+  ```
+    spring.mustache.prefix=classpath:/templates/
+    spring.mustache.suffix=.mustache
+  ```
+* 템플릿 파일을 찾을 때 `classpath:/templates/` 경로를 기본으로 사용하도록 함 
