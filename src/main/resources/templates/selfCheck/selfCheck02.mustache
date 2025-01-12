@@ -1,0 +1,16 @@
+{{>layouts/header}}
+
+    <form class="container" action="/self/136p" method="post"> <!-- 입력 폼 작성, 부트스트랩 CSS 코드 적용 -->
+        <div class="mb-3">
+            <label class="form-label">이름</label>
+            <input type="text" class="form-control" name="name"> <!-- DTO의 name 필드와 연결하기 위해 name 을 넣고 필드 이름 설정 -->
+        </div>
+        <div class="mb-3">
+            <label class="form-label">비밀번호</label>
+            <input type="password" class="form-control" name="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="/signup">Back</a> <!-- Back을 누르면 /members 디렉토리의 /signup 페이지로 가도록 한다. -->
+    </form>
+
+{{>layouts/footer}}
