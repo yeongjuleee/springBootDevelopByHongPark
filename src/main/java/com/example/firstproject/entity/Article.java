@@ -4,8 +4,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
+@AllArgsConstructor // Article() 생성자를 대체하는 어노테이션
+@ToString // toString() 메서드를 대체하는 어노테이션
+@NoArgsConstructor // 매개변수가 없는 기본 생성자를 자동으로 생성해주는 어노테이션
 public class Article {
     @Id
     @GeneratedValue // 자동 생성 기능 추가 (숫자가 자동으로 매겨진다.)
@@ -16,21 +22,4 @@ public class Article {
 
     @Column
     private String content;
-
-    public Article(Long id, String title, String content) {
-        // Article 객체의 생성 및 초기화를 위한 생성자 추가하기
-        this.id = id;
-        this.title = title;
-        this.content = content;
-    }
-
-    @Override
-    public String toString() {
-        // 서버에 데이터가 잘 들어왔는지 확인하기 위한 메서드
-        return "Article{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                '}';
-    }
 }

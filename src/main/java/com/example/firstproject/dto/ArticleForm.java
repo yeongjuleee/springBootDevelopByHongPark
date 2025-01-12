@@ -1,7 +1,12 @@
 package com.example.firstproject.dto;
 
 import com.example.firstproject.entity.Article;
+import lombok.*;
 
+@AllArgsConstructor // 생성자를 자동으로 만들어주는 코드. 이것이 없으면 생성자를 따로 작성해야함!
+@NoArgsConstructor // 매개변수가 없는 기본 생성자를 자동으로 생성해주는 어노테이션
+@ToString // 코드가 제대로 작동하는지 로그 찍어보기 위한 코드. 이것이 없으면 toString() 메서드를 따로 생성해야함!
+@Getter @Setter // 값을 받고 전달해야하기 때문에 값을 설정하는 Setr 와 받는 Getter 선언
 public class ArticleForm {
     // 컨트롤러에서 폼 데이터를 받을 때 DTO(Data Transfer Object) 담아 받음!
 
@@ -9,20 +14,6 @@ public class ArticleForm {
     private String title;
     private String content;
 
-    public ArticleForm(String title, String content) { 
-        // 전송받은 제목과 내용을 필드에 저장하는 생성자 추가
-        this.title = title;
-        this.content = content;
-    }
-
-    @Override
-    public String toString() {
-        // 데이터를 잘 받았는지 확인할 toString() 메서드
-        return "ArticleForm{" +
-                "title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                '}';
-    }
 
     public Article toEntity() {
         // DTO인 form 객체를 엔티티로 변환하는 역할, 폼 데이터를 담은 DTO 객체를 엔티티로 반환한다.

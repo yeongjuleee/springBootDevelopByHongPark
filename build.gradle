@@ -22,6 +22,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mustache' // 화면을 만들기 위한 view templates
     implementation 'org.springframework.boot:spring-boot-starter-web'
     runtimeOnly 'com.h2database:h2' // 자료를 저장하기 위한 데이터베이스
+
+    // 롬복 라이브러리
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // 테스트
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
