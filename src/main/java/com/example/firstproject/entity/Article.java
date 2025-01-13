@@ -11,7 +11,6 @@ import lombok.ToString;
 
 @Entity
 @AllArgsConstructor // Article() 생성자를 대체하는 어노테이션
-@NoArgsConstructor // 매개변수가 없는 기본 생성자를 자동으로 생성해주는 어노테이션
 @Getter
 @ToString // toString() 메서드를 대체하는 어노테이션
 public class Article {
