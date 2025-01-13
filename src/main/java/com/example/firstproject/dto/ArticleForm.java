@@ -6,7 +6,8 @@ import lombok.*;
 @AllArgsConstructor // 생성자를 자동으로 만들어주는 코드. 이것이 없으면 생성자를 따로 작성해야함!
 @NoArgsConstructor // 매개변수가 없는 기본 생성자를 자동으로 생성해주는 어노테이션
 @ToString // 코드가 제대로 작동하는지 로그 찍어보기 위한 코드. 이것이 없으면 toString() 메서드를 따로 생성해야함!
-@Getter @Setter // 값을 받고 전달해야하기 때문에 값을 설정하는 Setr 와 받는 Getter 선언
+@Getter // 값을 받아 전달해야 하기 때문에 Getter 선언
+@Setter // 값을 설정하는 Setter 선언
 public class ArticleForm {
     // 컨트롤러에서 폼 데이터를 받을 때 DTO(Data Transfer Object) 담아 받음!
 
