@@ -11,7 +11,7 @@ import lombok.ToString;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor
-@Getter @ToString
+@ToString
 public class Member {
 
     @Id @GeneratedValue
