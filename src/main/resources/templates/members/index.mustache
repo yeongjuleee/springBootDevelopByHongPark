@@ -12,11 +12,12 @@
         {{#memberList}} <!-- MemberController의 index() 메서드에서 등록한 모델 이름으로 값을 받아옴 -->
         <tr>
             <th>{{id}}</th> <!-- 속성 삭제, 가짜 데이터 넣기 -->
-            <td>{{email}}</td>
+            <td><a href="/members/{{id}}">{{email}}</a></td>
             <td>{{password}}</td>
         </tr>
         {{/memberList}}
         </tbody>
     </table>
+    <a href="/members/new">회원가입</a> <!-- 회원가입 페이지로 가기 -->
 
 {{>layouts/footer}}

@@ -40,7 +40,7 @@ public class ArticleController {
         Article saved = articleRepository.save(article); // article 엔티티를 저장해 saved 객체에 반환
         log.info("db 저장 완료 : " + saved.toString()); // article이 DB에 잘 저장되었는지 로그 찍어보기
         
-        return "";
+        return "redirect:/articles/" + saved.getId(); // 리다이렉트를 작성할 위치, 작성방법 : redirect:URL_주소 + 새 글의 id
     }
 
     // 5.2 단일 데이터 조회하기, URL에 id값을 입력하여 해당 게시글 볼 수 있도록 만들기

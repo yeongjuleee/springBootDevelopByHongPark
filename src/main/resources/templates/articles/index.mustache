@@ -12,12 +12,13 @@
         {{#articleList}} <!-- ArticleController의 index() 메서드에서 등록한 모델 이름으로 값을 받아옴 -->
             <tr>
                 <th>{{id}}</th> <!-- 속성 삭제, 가짜 데이터 넣기 -->
-                <td>{{title}}</td>
+                <td><a href="/articles/{{id}}">{{title}}</a></td> <!-- 상세 페이지로 이동하는 링크 설정. 제목을 <a> 태그로 감싸는 모양, 속성으로 href="/articles/id값 -->
                 <td>{{content}}</td>
             </tr>
         {{/articleList}}
         </tbody>
     </table>
+    <a href="/articles/new">New Article</a> <!-- href 속성값으로 요청을 보낼 링크 주소를 작성 -->
 
 
 {{>layouts/footer}}

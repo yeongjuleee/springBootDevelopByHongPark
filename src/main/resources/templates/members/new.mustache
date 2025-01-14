@@ -1,6 +1,6 @@
 {{>layouts/header}}
 
-    <form class="container" action="/join" method="post"> <!-- 입력 폼 작성, 부트스트랩 CSS 코드 적용 -->
+    <form class="container" action="/members/new" method="post"> <!-- 입력 폼 작성, 부트스트랩 CSS 코드 적용 -->
         <div class="mb-3">
             <label class="form-label">이메일</label>
             <input type="email" class="form-control" name="email"> <!-- DTO의 title 필드와 연결하기 위해 name 을 넣고 필드 이름 설정 -->
@@ -10,7 +10,7 @@
             <input type="password" class="form-control" name="password">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
-        <a href="/members">Back</a>
+        <a href="/members">Back</a> <!-- href 속성을 이용하여 목록 페이지로 돌아가는 링크 추가 -->
     </form>
 
 {{>layouts/footer}}

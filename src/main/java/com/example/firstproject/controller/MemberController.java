@@ -22,12 +22,17 @@ public class MemberController {
     @Autowired
     private MemberRepository memberRepository;
 
+    @GetMapping("/members/new")
+    public String newMemberForm() { // 회원 가입 링크를 누르면 오는 링크
+        return "members/new";
+    }
+
     @GetMapping("/signup")
     public String signUpPage() {
         return "members/new";
     }
 
-    @PostMapping("/join")
+    @PostMapping("/members/new")
     public String join(MemberForm memberForm) {
         log.info("MemberForm DTO 값 :" + memberForm.toString()); // DTO에 폼 데이터가 잘 담겼는지 확인
         
@@ -39,7 +44,7 @@ public class MemberController {
         Member saved = memberRepository.save(member); // member 엔티티를 저장해 saved 객체에 변환
         log.info("DB에 저장된 값 :" + saved.toString());
 
-        return "";
+        return "redirect:/members/" + saved.getId();
     }
 
     @GetMapping("/members/{id}")
@@ -50,7 +55,7 @@ public class MemberController {
         // 2. 모델 변환
         model.addAttribute("member", memberEntity);
         // 3. 뷰 반환
-        return "members/show";
+        return "members/show"; // 상세보기 페이지
     }
 
     @GetMapping("/members")
@@ -62,7 +67,7 @@ public class MemberController {
         model.addAttribute("memberList", memberEntityList);
 
         // 3. 사용자 화면 반환
-        return "members/index";
+        return "members/index"; // 목록보기 페이지
 
     }
 }

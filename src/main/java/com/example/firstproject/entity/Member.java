@@ -12,6 +12,7 @@ import lombok.ToString;
 @Entity
 @AllArgsConstructor @NoArgsConstructor
 @ToString
+@Getter // 외부의 데이터를 읽기 위해 추가한 어노테이션
 public class Member {
 
     @Id @GeneratedValue
