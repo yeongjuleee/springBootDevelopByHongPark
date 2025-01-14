@@ -1,0 +1,22 @@
+{{>layouts/header}}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Id</th> <!-- 멤버 클래스의 필드명으로 제목행 -->
+        <th scope="col">Email</th>
+        <th scope="col">Password</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#member}} <!-- 컨트롤러에서 모델로 등록한 변수 이름으로 데이터 가져오기 -->
+        <tr>
+            <th>{{id}}</th> <!-- 엔티티의 필드 값 가져오기 -->
+            <td>{{email}}</td>
+            <td>{{password}}</td>
+        </tr>
+    {{/member}}
+    </tbody>
+</table>
+
+{{>layouts/footer}}

@@ -3,22 +3,46 @@
 
 ---
 ## Part2 : 3~8장(CRUD 관련)
-### chapter4, 롬복과 리팩터링
-1. 롬복(lombok)이란? 코드를 간소화해주는 라이브러리. `getter()`, `setter()`, `constructor()` 등 개발을 할 때 필수적으로 사용하는 메서드를 반복해서 사용하지 않고 코드를 간편하게 작성할 수 있도록 하는 것 
-2. 로깅(logging) : 프로그램의 수행 과정을 기록으로 남기는 것으로, log를 찍는다 와 같은 활동을 말함. `@Slf4`
-
-* 롬복의 기능 : 코드 반복 최소화(`@Data`), 로깅 기능 지원(`@Slf4j`)
-  * `@Slf4j` : Simple Logging Facade for Java의 약자로 로깅 기능을 사용할 수 있다. 
-  ```java
-    log.info(객체.toString()); // 주의사항 : 부르는 객체에 toString() 메서드를 담당하는 어노테이션 또는 메서드가 없으면 사용을 못 함!
-  ```
-
-3. 리팩터링(refactoring) : 코드의 기능에는 변함 없이 **코드의 구조 또는 성능을 개선하는 작업**
+### chapter5, 게시글 읽기: READ
+* DB에 저장된 데이터를 조회해 웹 페이지에 출력하기 
 ---
-## 현재 4장 문제점
-~~* `ArticleForm.java`과 `Article.java`에서 `@Getter`만 이용하여 값을 전달받을 수 있다고 했으나 받을 수 없었음.~~
-~~* 그런 이유로 `ArticleForm.java`에 기존 추가해야하는 어노테이션 `@AllArgsConsturctor`와 `@Getter`뿐 아니라 `@NoArgsConstructor`와 `@Setter`를 추가해줬음~~
-~~* `@NoArgsConstructor` 추가 이유 : 매개변수가 없는 생성자의 값을 받아 초기화 하기 위해. `@AllArgsConstructor`만 있으면 오류 표시가 생겼음.~~
-  ~~* `@Setter`를 추가하지 않으면 처음, DTO 에서 부터 값을 전달받지 못하는 문제가 있어 `@Setter`를 추가해주었음.~~ 
-~~* `MemberForm.java`와 `Member.java` 또한 위와 같이 설정해둔 상태이다.~~
-* `@NoArgsConstructor` 어노테이션으로 인한 null 값 전달이었다. 해당 어노테이션을 제거하고, DTO와 Entity에 `@Getter`를 넣으니 잘 전달되는 것을 확인했다. 
+#### 5.1 데이터 조회 과정
+1. 사용자가 데이터를 조회를 URL 요청
+2. 서버의 컨트롤러가 요청을 받아 해당 URL을 찾아 데이터 정보를 repository에 전달
+3. 리파지토리가 정보를 가지고 DB 데이터 조회
+4. DB는 해당 데이터를 찾아 엔티티로 반환
+5. 엔티티는 모델을 통해 뷰 템플릿으로 전달
+6. 뷰 페이지가 완성 돼 사용자의 화면에 출력
+---
+#### 데이터를 조회해 출력하기 위한 단계
+1. `id`를 조회하여 DB에서 해당 데이터를 가져오도록 한다.
+   * `Repository`를 이용하여 데이터를 가져옴. 
+   * `Repository` 이용 방법 : `@Autowired` 을 이용하여 객체 주입받기 
+   * `엔티티클래스` 변수 = `repository객체`.findById(`id`) 를 할 경우, `findById()`로 찾은 값을 반환할 때 반환형이 Entity가 아니라서 오류가 발생함. 
+     * 이 때 반환형은 `Optional<엔티티클래스>`로 수정하면 된다. => `findById()`를 반환하려면 `Optional<클래스>`로 해야함.
+2. 모델에 데이터 등록하기
+   * show() 메서드의 매개변수로 model 객체를 받아오기 위해, `Model model`을 추가한다. 
+   * 모델에 데이터를 등록할 때는 `addAttribute()` 메서드를 사용한다.
+     * ```java
+       // 형식: model.addAttribute(String name, Object value) = name 이라는 이름으로 value 객체 추가 
+       model.AddAttribute("article", articleEntity); // article이라는 이름으로 articleEntity 객체 등록.
+       ```
+   * 가져온 데이터를 모델에 등록했으니, 사용자에게 보여줄 뷰 페이지를 반환 `return "articles/show"`
+   
+* ***`@PathVariable`***  : URL 요청으로 들어온 전달값을 컨트롤러의 매개변수로 가져오는 어노테이션이다.
+* ***`findById()`*** : JPA의 `CrudRepository`가 제공하는 메서드로, 특정 엔티티의 id값을 기준으로 데이터를 찾아 `Optional`타입으로 반환한다.
+---
+#### 5.3 데이터 목록 조회하기
+1. DB에서 모든 Entity 데이터 가져오기
+   * `Repository`를 이용하여 데이터를 가져온다. 
+   * 모든 데이터를 가져오는 메서드 : `findAll()`
+   * 이때 모든 Entity는 데이터 묶음이기 때문에, `List<Entity>` 로 하여, `List<Entity> 변수명 = repository가주입된변수.findAll()`로 한다.
+     * 중요한 것은 `List<객체>`가 `findAll()`의 반환의 타입과 맞지 않아 오류가 일어나는데, `findAll()`은 `Iterable`이라는 interface이다. 
+       * Iterable(가장 상위의 interface) > Collection(interface) > List(interface) 순서이다.
+       * 이것을 해결하기 위해서는 캐스팅(casting), 형변환을 해줘야 하는데 넓은 범위로 해석 : 업캐스팅(Upcasting) 또는 좁은 범위 해석 : 다운캐스팅(Downcasting)을 한다. 
+       * 예시 : '고양이'를 생물로 해석했다면 업캐스팅, '생물'을 다시 '동물'로 해석했다면 다운캐스팅이다.
+       * 따라서, `List<객체> 변수명 = (List<객체>)repository가주입된변수.findAll()`을 하면 다운 캐스팅,
+       * `Iterable<객체> 변수명 = repository가주입된변수.findAll()`을 하면 업캐스팅
+       * **해당 책에서는 많이 사용하는 다운 캐스팅(List 하위의 ArrayList(Class)로 변환)함.**
+2. 가져온 Entity 묶음을 모델에 등록하기
+3. 사용자에게 보여 줄 뷰 페이지 설정하기

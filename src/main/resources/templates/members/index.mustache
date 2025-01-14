@@ -1,0 +1,22 @@
+{{>layouts/header}}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th> <!-- 제목 행의 이름 수정 -->
+            <th scope="col">Email</th>
+            <th scope="col">Password</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#memberList}} <!-- MemberController의 index() 메서드에서 등록한 모델 이름으로 값을 받아옴 -->
+        <tr>
+            <th>{{id}}</th> <!-- 속성 삭제, 가짜 데이터 넣기 -->
+            <td>{{email}}</td>
+            <td>{{password}}</td>
+        </tr>
+        {{/memberList}}
+        </tbody>
+    </table>
+
+{{>layouts/footer}}
