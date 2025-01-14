@@ -1,0 +1,22 @@
+{{>layouts/header}}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th> <!-- 제목 행의 이름 수정 -->
+            <th scope="col">Title</th>
+            <th scope="col">Content</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#article}}
+        <tr>
+            <th>{{id}}</th> <!-- 속성 삭제, 가짜 데이터 넣기 -->
+            <td>{{title}}</td>
+            <td>{{content}}</td>
+        </tr>
+        {{/article}}
+        </tbody>
+    </table>
+
+{{>layouts/footer}}
