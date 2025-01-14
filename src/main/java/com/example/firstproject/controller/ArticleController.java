@@ -6,8 +6,13 @@ import com.example.firstproject.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @Slf4j // 로깅 기능을 위한 어노테이션 추가
@@ -36,5 +41,35 @@ public class ArticleController {
         log.info("db 저장 완료 : " + saved.toString()); // article이 DB에 잘 저장되었는지 로그 찍어보기
         
         return "";
+    }
+
+    // 5.2 단일 데이터 조회하기, URL에 id값을 입력하여 해당 게시글 볼 수 있도록 만들기
+    @GetMapping("/articles/{id}") // 데이터 조회 요청 접수
+    public String show(@PathVariable Long id, Model model) {
+        // @PathVariable : URL 요청으로 들어온 전달값을 컨트롤러의 매개변수로 가져오는 어노테이션
+        // 매개변수로 id 값 가져오기.
+        log.info("id : " + id); // id 값을 잘 받아오는지 확인하는 로그
+
+        // 1. id를 조회해 데이터 가져오기 : 데이터를 가지고 오는 주체는 Repository. repository 구현 객체는 @Autowired 를 통해 주입
+        Article articleEntity = articleRepository.findById(id).orElse(null);
+
+        // 2. 모델에 데이터 등록하기 : show() 메서드의 매개변수로 model 객체를 가져오기
+        model.addAttribute("article", articleEntity);
+
+        // 3. 뷰 페이지 반환하기
+        return "articles/show";
+    }
+
+    // 5.3 데이터 목록 조회하기
+    @GetMapping("/articles")
+    public String index(Model model) {
+        // 1. 모든 데이터 가져오기
+        List<Article> articleEntityList = articleRepository.findAll();
+        
+        // 2. 모델에 데이터 등록하기
+        model.addAttribute("articleList", articleEntityList); // articleEntityList 등록
+        
+        // 3. 뷰 페이지 설정하기
+        return "articles/index";
     }
 }
